@@ -13,7 +13,9 @@ export default function HomeScreen() {
           achievements="50"
           bountyPoints="350"
         />
-        <QuestCard progress={3} />
+        <View style={styles.questContainer}>
+          <QuestCard progress={3} />
+        </View>
       </View>
     </ScrollView>
   );
@@ -21,14 +23,19 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    top: -50,
+    top: -70,
     flexGrow: 1,
     width: '100%',
     paddingBottom: 20, // Optional: Add some bottom padding if needed
   },
   container: {
     width: '100%',
-    flex: 1,
+    height: '90%',
+    alignItems: 'center',
+  },
+  questContainer: {
+    width: '100%',
+    height: '30%',
     alignItems: 'center',
   },
 });
