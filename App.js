@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react'; 
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import BottomNav from './components/BottomNav';
 import HomeScreen from './screens/HomeScreen';
 
+
 export default function App() {
+  
   return (
     <ImageBackground
       source={require('./assets/TimberBG.png')} 
