@@ -1,11 +1,39 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import { useFonts } from 'expo-font';
+import { Svg, Circle } from 'react-native-svg';
 
-export default function ProfileCard({level, bountiesCleared, achievements, bountyPoints}) {
-    const [fontsLoaded] = useFonts({
-        'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
-      });
+export default function ProfileCard({ level, bountiesCleared, achievements, bountyPoints }) {
+  const [fontsLoaded] = useFonts({
+    'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
+  });
+
+  const calculateProgressBar = () => {
+    const progress = parseInt(level) || 0;
+    const maxProgress = 100;
+    const circumference = 2 * Math.PI * 50; // Assuming radius of 50
+
+    const progressValue = (progress / maxProgress) * circumference;
+    const remainingValue = circumference - progressValue;
+
+    return { progressValue, remainingValue };
+  };
+
+  const renderProgressBar = () => {
+    const { progressValue, remainingValue } = calculateProgressBar();
+
+    return (
+      <Svg width="100" height="100">
+        <Circle cx="50"c y="50" r="50" fill="none" stroke="#CCCCCC" strokeWidth="10"
+        />
+        <Circle cx="50" cy="50" r="50" fill="none" stroke="#F2DE89"
+          strokeWidth="10" strokeLinecap="round"
+          strokeDasharray={[progressValue, remainingValue]}
+          transform="rotate(-90 50 50)"
+        />
+      </Svg>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -18,12 +46,13 @@ export default function ProfileCard({level, bountiesCleared, achievements, bount
         </View>
         <View style={styles.rightSection}>
           <View style={styles.levelContainer}>
+            {renderProgressBar()}
             <Text style={styles.levelText}>{level ? level : "Level 42"}</Text>
           </View>
           <View style={styles.attributesContainer}>
-            <Text style={styles.attributeText}>Bounties Cleared: {bountiesCleared | "25"}</Text>
-            <Text style={styles.attributeText}>Achievements: {achievements | "50"}/73</Text>
-            <Text style={styles.attributeText}>Bounty Points: {bountyPoints | 350}</Text>
+            <Text style={styles.attributeText}>Bounties Cleared: {bountiesCleared || "25"}</Text>
+            <Text style={styles.attributeText}>Achievements: {achievements || "50"}/73</Text>
+            <Text style={styles.attributeText}>Bounty Points: {bountyPoints || 350}</Text>
           </View>
         </View>
       </View>
@@ -62,12 +91,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   levelContainer: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   levelText: {
-    fontSize: 16,
+    fontSize: 45,
     fontWeight: 'bold',
     fontFamily: 'Just Another Hand',
+    marginTop: -50, // Adjust as per your design
+    color: '#F2DE89',
   },
   attributesContainer: {
     justifyContent: 'flex-end',

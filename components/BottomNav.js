@@ -8,7 +8,7 @@ export default function BottomNav() {
         <Image source={require('../assets/AddPost.png')} style={styles.iconTop} />
       </View>
       <View style={styles.bottomRow}>
-        <View style={styles.tab}>
+        <View style={styles.tabLeft}>
             <Image source={require('../assets/Skills.png')} style={styles.icon} />
         </View>
         <View style={styles.tab}>
@@ -62,6 +62,15 @@ const styles = StyleSheet.create({
     borderRightWidth: 7,
     paddingTop: 7,
     borderRightColor: '#F2DE89',
+  },
+  tabLeft: {
+    alignItems: 'center',
+    flex: 1,
+    borderRightWidth: 7,
+    borderLeftWidth: 7,
+    paddingTop: 7,
+    borderRightColor: '#F2DE89',
+    borderLeftColor: '#F2DE89',
   },
   iconPlaceholder: {
     width: 71,
