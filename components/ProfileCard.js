@@ -11,7 +11,7 @@ export default function ProfileCard({ level, bountiesCleared, achievements, boun
   const calculateProgressBar = () => {
     const progress = parseInt(level) || 0;
     const maxProgress = 100;
-    const circumference = 2 * Math.PI * 50; // Assuming radius of 50
+    const circumference = 2 * Math.PI * 30; // Assuming radius of 50
 
     const progressValue = (progress / maxProgress) * circumference;
     const remainingValue = circumference - progressValue;
@@ -24,12 +24,11 @@ export default function ProfileCard({ level, bountiesCleared, achievements, boun
 
     return (
       <Svg width="100" height="100">
-        <Circle cx="50"c y="50" r="50" fill="none" stroke="#CCCCCC" strokeWidth="10"
-        />
-        <Circle cx="50" cy="50" r="50" fill="none" stroke="#F2DE89"
+        <Circle cx="50"c y="50" r="30" fill="none" stroke="white" strokeWidth="10"/>
+        <Circle cx="50" cy="50" r="30" fill="none" stroke="#F2DE89"
           strokeWidth="10" strokeLinecap="round"
           strokeDasharray={[progressValue, remainingValue]}
-          transform="rotate(-90 50 50)"
+          transform="rotate(-90 58 58)"
         />
       </Svg>
     );
@@ -47,7 +46,7 @@ export default function ProfileCard({ level, bountiesCleared, achievements, boun
         <View style={styles.rightSection}>
           <View style={styles.levelContainer}>
             {renderProgressBar()}
-            <Text style={styles.levelText}>{level ? level : "Level 42"}</Text>
+            <Text style={styles.levelText}>Level  {level ? level : "42"}</Text>
           </View>
           <View style={styles.attributesContainer}>
             <Text style={styles.attributeText}>Bounties Cleared: {bountiesCleared || "25"}</Text>
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileCard: {
-    width: '87%',
+    width: '92%',
     height: '30%',
     backgroundColor: 'white',
     borderRadius: 10,
@@ -92,19 +91,24 @@ const styles = StyleSheet.create({
   },
   levelContainer: {
     alignItems: 'center',
+    top: -20, // Adjust as per your design
+    right: -20, // Adjust as per your design
   },
   levelText: {
+    left: -30,
     fontSize: 45,
     fontWeight: 'bold',
     fontFamily: 'Just Another Hand',
     marginTop: -50, // Adjust as per your design
-    color: '#F2DE89',
+    color: 'black',
   },
   attributesContainer: {
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   attributeText: {
-    fontSize: 14,
+    fontSize: 25,
     marginBottom: 5,
+    fontFamily: 'Just Another Hand',
   },
 });
