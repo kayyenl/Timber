@@ -1,7 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 export default function NewsCard({ news }) {
+    const [fontsLoaded] = useFonts({
+        'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
+      });
+    
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      }
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Latest News</Text>
@@ -26,18 +35,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 60,
+    fontFamily: 'Just Another Hand',
     fontWeight: 'bold',
-    marginBottom: 10,
   },
   divider: {
-    width: '100%',
-    height: 1,
+    width: '80%',
+    height: 4,
     backgroundColor: 'black',
-    marginBottom: 10,
+    marginBottom: 14,
   },
   newsText: {
-    fontSize: 16,
+    fontFamily: 'Just Another Hand',
+    fontSize: 28,
     marginBottom: 5,
   },
 });

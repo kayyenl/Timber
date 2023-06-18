@@ -47,6 +47,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
+  divider: {
+    width: '80%',
+    height: 3,
+    backgroundColor: 'black',
+    marginBottom: 20,
+  },
   headerContainer: {
     height: '30%',
     width: '100%',
