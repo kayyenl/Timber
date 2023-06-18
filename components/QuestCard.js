@@ -1,8 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 export default function QuestCard({ progress }) {
-  const progressBarWidth = `${(progress / 10) * 100}%`;
+    const progressBarWidth = `${(progress / 10) * 100}%`;
+    
+    const [fontsLoaded] = useFonts({
+        'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
+    });
+
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
+    
+    //just type v and them backspace. the formatting works after that
 
   return (
     <View style={styles.container}>
@@ -25,28 +37,32 @@ const styles = StyleSheet.create({
     container: {
       width: '100%',
       flex: 1,
-      marginTop: 20,
+      top: -80,
+      borderRadius: 10,
+      paddingTop: 20,
       alignItems: 'center',
       backgroundColor: 'white',
     },
     headerContainer: {
-      height: '30%',
+      height: '20%',
       width: '100%',
       alignItems: 'center',
-      marginBottom: 10,
+      marginBottom: 30,
     },
     headerText: {
-      fontSize: 20,
+      fontSize: 70,
       fontWeight: 'bold',
+      fontFamily: 'Just Another Hand',
     },
     progressBarContainer: {
       width: '100%',
-      height: 20,
+      height: 0,
       borderRadius: 10,
       backgroundColor: '#D3D3D3',
+      zIndex: 20,
     },
     progressBar: {
-      height: '100%',
+      height: '50%',
       borderRadius: 10,
     },
     progressBarFill: {
