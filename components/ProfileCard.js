@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import { useFonts } from 'expo-font';
 import { Svg, Circle } from 'react-native-svg';
+import AppLoading from 'expo-app-loading';
 
 export default function ProfileCard({ level, bountiesCleared, achievements, bountyPoints }) {
   const [fontsLoaded] = useFonts({
@@ -21,6 +22,12 @@ export default function ProfileCard({ level, bountiesCleared, achievements, boun
 
   const renderProgressBar = () => {
     const { progressValue, remainingValue } = calculateProgressBar();
+
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
+    
+    //just type v and them backspace. the formatting works after that
 
     return (
       <Svg width="100" height="100">
@@ -46,7 +53,7 @@ export default function ProfileCard({ level, bountiesCleared, achievements, boun
         <View style={styles.rightSection}>
           <View style={styles.levelContainer}>
             {renderProgressBar()}
-            <Text style={styles.levelText}>Level  {level ? level : "42"}</Text>
+            <Text style={styles.levelText}>Level   {level ? level : "42"}</Text>
           </View>
           <View style={styles.attributesContainer}>
             <Text style={styles.attributeText}>Bounties Cleared: {bountiesCleared || "25"}</Text>
@@ -61,14 +68,14 @@ export default function ProfileCard({ level, bountiesCleared, achievements, boun
 
 const styles = StyleSheet.create({
   container: {
-    width: '92%',
+    width: '100%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   profileCard: {
     width: '92%',
-    height: '30%',
+    height: '50%',
     backgroundColor: 'white',
     borderRadius: 10,
     flexDirection: 'row',

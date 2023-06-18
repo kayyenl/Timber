@@ -6,7 +6,10 @@ import QuestCard from '../components/QuestCard';
 
 export default function HomeScreen() {
   return (
-    <View>
+    <View style={{
+        width : "90%",
+        height : "100%",
+    }}>
       <ProfileCard
         level="42"
         bountiesCleared="25"
