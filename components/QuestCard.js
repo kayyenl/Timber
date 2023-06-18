@@ -24,11 +24,13 @@ export default function QuestCard({ progress }) {
 const styles = StyleSheet.create({
     container: {
       width: '92%',
+      flex: 1,
       marginTop: 20,
       alignItems: 'center',
       backgroundColor: 'white',
     },
     headerContainer: {
+        height: '30%',
       width: '100%',
       alignItems: 'center',
       marginBottom: 10,
