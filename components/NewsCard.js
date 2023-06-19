@@ -26,13 +26,14 @@ export default function NewsCard({ news }) {
 
 const styles = StyleSheet.create({
   container: {
+    top:60,
     width: '92%',
     borderRadius: 10,
     paddingVertical: 20,
     paddingHorizontal: 10,
     alignItems: 'center',
     backgroundColor: 'white',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   headerText: {
     fontSize: 60,

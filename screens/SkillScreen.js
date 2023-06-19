@@ -1,36 +1,145 @@
-import React from 'react';
-import { View, ScrollView, StyleSheet, Image, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { ProgressBar } from 'react-native-paper';
 
-export default function SkillScreen() {
+export default function SkillScreenMarketing() {
   const [fontsLoaded] = useFonts({
-      'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
-    });
+    'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
+  });
 
-    if (!fontsLoaded) {
-        return <AppLoading />;
-    }
+  const [userSkills, setUserSkills] = useState([]);
+  const [selectedSkill, setSelectedSkill] = useState(null);
 
-  const skills = [
-    { name: 'Marketing', image: require('../assets/Marketing.png') },
-    { name: 'Creativity', image: require('../assets/Creativity.png') },
-    { name: 'Technology', image: require('../assets/Technology.png') },
-    { name: 'Presentation', image: require('../assets/Presentation.png') },
-    { name: 'Operations', image: require('../assets/Operations.png') },
-    { name: 'People Skills', image: require('../assets/PeopleSkills.png') },
+  useEffect(() => {
+    fetch('http://timber-api-env.eba-tvcu62mw.ap-southeast-2.elasticbeanstalk.com/api/userSkill/allByUser?userId=0ea02f7f-e8f2-41b7-ba2b-6b21b2e0745a')
+      .then(response => response.json())
+      .then(data => setUserSkills(data))
+      .catch(error => console.log(error));
+  }, []);
+  
+
+  const skills = 
+    [
+      {
+        name: 'Marketing',
+        image: require('../assets/Marketing.png'),
+        colour: '#387BC6',
+        content: 'Marketing Skills Description',
+        skills: userSkills
+          .filter(skill => skill.skill.skillType.name === 'Marketing')
+          .map(skill => ({ name: skill.skill.name, level: skill.level / 100})),
+      },
+      {
+        name: 'Creativity',
+        image: require('../assets/Creativity.png'),
+        colour: '#387BC6',
+        content: 'Creativity Skills Description',
+        skills: userSkills
+          .filter(skill => skill.skill.skillType.name === 'Creativity')
+          .map(skill => ({ name: skill.skill.name, level: skill.level / 100})),
+      },
+      {
+        name: 'Technology',
+        image: require('../assets/Technology.png'),
+        colour: '#387BC6',
+        content: 'Technology Skills Description',
+        skills: userSkills
+          .filter(skill => skill.skill.skillType.name === 'Technology')
+          .map(skill => ({ name: skill.skill.name, level: skill.level / 100})),
+      },
+      {
+        name: 'Presentation',
+        image: require('../assets/Presentation.png'),
+        colour: '#387BC6',
+        content: 'Presentation Skills Description',
+        skills: userSkills
+          .filter(skill => skill.skill.skillType.name === 'Presentation')
+          .map(skill => ({ name: skill.skill.name, level: skill.level / 100})),
+      },
+      {
+        name: 'Operations',
+        image: require('../assets/Operations.png'),
+        colour: '#387BC6',
+        content: 'Operations Skills Description',
+        skills: userSkills
+          .filter(skill => skill.skill.skillType.name === 'Operations')
+          .map(skill => ({ name: skill.skill.name, level: skill.level / 100})),
+      },
+      {
+        name: 'People skills',
+        image: require('../assets/PeopleSkills.png'),
+        colour: '#387BC6',
+        content: 'People skills Skills Description',
+        skills: userSkills
+          .filter(skill => skill.skill.skillType.name === 'People skills')
+          .map(skill => ({ name: skill.skill.name, level: skill.level / 100})),
+      },
   ];
+
+  const handleSkillPress = (skill) => {
+    if (selectedSkill && selectedSkill.name === skill.name) {
+      setSelectedSkill(null);
+    } else {
+      setSelectedSkill(skill);
+    }
+  };
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <View style={styles.skillContainer}>
-        <Text style={styles.greetingText}>Skills</Text>
+          <Text style={styles.greetingText}>Skills</Text>
           {skills.map((skill, index) => (
-            <View key={index} style={styles.skillCard}>
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.skillCard,
+                selectedSkill && selectedSkill.name === skill.name && {
+                  borderColor: skill.colour,
+                },
+              ]}
+              onPress={() => handleSkillPress(skill)}
+            >
               <Image source={skill.image} style={styles.skillImage} />
-            </View>
+            </TouchableOpacity>
           ))}
+          {selectedSkill && (
+            <TouchableOpacity
+              style={[
+                styles.selectedSkillContainer,
+                selectedSkill && {
+                  borderColor: selectedSkill.colour,
+                },
+              ]}
+              onPress={() => setSelectedSkill(null)}
+            >
+              <Text
+                style={[
+                  styles.selectedSkillText,
+                  selectedSkill && { color: selectedSkill.colour },
+                ]}>{selectedSkill.name}</Text>
+              <View style={styles.progressBarContainer}>
+                {selectedSkill.skills.map((skill, index) => (
+                  <View key={index} style={styles.skillProgressContainer}>
+                    <Text 
+                      style={styles.skillName}>{skill.name}</Text>
+                    <ProgressBar
+                      progress={skill.level}
+                      color={selectedSkill.colour}
+                      style={styles.progressBar}
+                    />
+                    <Text style={styles.skillLevel}>Lv.{(skill.level * 100)}</Text>
+                  </View>
+                ))}
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -41,23 +150,23 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     width: '100%',
-    paddingBottom: 20, // Optional: Add some bottom padding if needed
+    paddingBottom: 20,
   },
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 70,
+    paddingTop: 50,
   },
   skillContainer: {
     width: '90%',
-    height: 715,
+    height: '90%',
     backgroundColor: 'white',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingHorizontal: 20, // Increase the left and right padding to make the white spaces wider
-    paddingVertical: 20, // Adjust the top and bottom padding as desired
+    paddingHorizontal: 20,
+    paddingVertical: 15,
     borderRadius: 20,
   },
   greetingText: {
@@ -65,28 +174,79 @@ const styles = StyleSheet.create({
     fontFamily: 'Just Another Hand',
     fontSize: 80,
     textAlign: 'center',
-    marginTop:20,
+    marginTop: 20,
     width: '100%',
     height: '10%',
   },
   skillCard: {
     width: '28%',
-    height: '14%',
+    height: 90,
     borderRadius: 20,
     backgroundColor: '#F2DE89',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 10,
+    marginVertical: 5,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     elevation: 2,
-    padding: "0%",
+    padding: 0,
+    borderWidth: 2,
+    borderColor: 'transparent',
   },
   skillImage: {
     width: 70,
     height: 70,
-    borderRadius: 10, // Apply border radius to the image
+    borderRadius: 10,
+  },
+  skillName: {
+    marginTop: 10,
+    fontSize: 34,
+    fontWeight: 'bold',
+    fontFamily: 'Just Another Hand'
+  },
+  selectedSkillContainer: {
+    width: '100%',
+    height: '55%',
+    borderRadius: 20,
+    backgroundColor: '#F2DE89',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginVertical: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
+    padding: 20,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    
+  },
+  selectedSkillText: {
+    fontSize: 80,
+    height: 100,
+    fontWeight: 'bold',
+    fontFamily: 'Just Another Hand',
+    textAlign: 'center',
+  },
+  skillProgressContainer: {
+    marginTop: -30,
+  },
+  progressBarContainer: {
+    width: '100%',
+    marginTop: 1,
+  },
+  progressBar: {
+    height: 40,
+    borderRadius: 5,
+    marginTop:1,
+  },
+  skillLevel: {
+    top: -30,
+    fontSize: 30,
+    marginLeft: 5,
+    fontFamily: 'Just Another Hand',
   },
 });

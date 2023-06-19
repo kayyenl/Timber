@@ -16,7 +16,8 @@ export default function HomeScreen() {
 
   return (
     <ScrollView 
-    contentContainerStyle={styles.scrollViewContent} >
+    contentContainerStyle={styles.scrollViewContent}
+    showsVerticalScrollIndicator={false} >
       <View style={styles.container}>
         <View style={styles.profileContainer}>
         <ProfileCard
@@ -39,28 +40,30 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   scrollViewContent: {
-    flexGrow: 1,
+    flexGrow: 0,
     width: '100%',
-    paddingBottom: 20, // Optional: Add some bottom padding if needed
+    paddingBottom:90, // Optional: Add some bottom padding if needed
   },
   container: {
     flex: 1,
     alignItems: 'center',
     paddingTop: 70,
+    paddingBottom: 200,
+    Height:200,
   },
   profileContainer: {
-    top: -130,
+    top: -100,
     width: 380,
     height: '60%',
     alignItems: 'center',
   },
   questContainer: {
-    top: -110,
-    width: 350,
+    top: -60,
     height: '30%',
     alignItems: 'center',
   },
   newsContainer: {
+    
     width: '100%',
     alignItems: 'center',
     top: -218,

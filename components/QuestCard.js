@@ -38,8 +38,8 @@ export default function QuestCard({ progress }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 360,
-    height: 100,
+    width: 350,
+    height: 200,
     flex: 1,
     top: -120,
     borderRadius: 10,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Just Another Hand',
   },
   progressBarContainer: {
-    width: '80%',
+    width: '75%',
     height: 20,
     borderRadius: 10,
     marginTop: 10,

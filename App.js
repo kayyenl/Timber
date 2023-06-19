@@ -3,8 +3,7 @@ import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import BottomNav from './components/BottomNav';
 import HomeScreen from './screens/HomeScreen';
 import SkillScreen from './screens/SkillScreen';
-import SkillScreenMarketing from './screens/SkillScreenMarketing';
-
+import FriendScreen from './screens/FriendScreen';
 
 export default function App() {
   
@@ -14,7 +13,7 @@ export default function App() {
       style={styles.container}
     >
       <View style={styles.overlay}>
-        <SkillScreenMarketing/>
+        <SkillScreen/>
         <BottomNav />
       </View>
     </ImageBackground>
