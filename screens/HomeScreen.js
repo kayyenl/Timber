@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     paddingTop: 70,
   },
   profileContainer: {
-    top: -120,
+    top: -130,
     width: 380,
     height: '60%',
     alignItems: 'center',
   },
   questContainer: {
-    top: -100,
+    top: -110,
     width: 350,
     height: '30%',
     alignItems: 'center',
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
   newsContainer: {
     width: '100%',
     alignItems: 'center',
-    top: -208,
+    top: -218,
   },
 });

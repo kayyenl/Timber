@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import BottomNav from './components/BottomNav';
 import HomeScreen from './screens/HomeScreen';
+import SkillScreen from './screens/SkillScreen';
+import SkillScreenMarketing from './screens/SkillScreenMarketing';
 
 
 export default function App() {
@@ -12,7 +14,7 @@ export default function App() {
       style={styles.container}
     >
       <View style={styles.overlay}>
-        <HomeScreen />
+        <SkillScreenMarketing/>
         <BottomNav />
       </View>
     </ImageBackground>
