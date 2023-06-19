@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet, Image, Text, TouchableOpacity } from 'rea
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { ProgressBar } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function SkillScreenMarketing() {
   const [fontsLoaded] = useFonts({
@@ -34,7 +35,7 @@ export default function SkillScreenMarketing() {
       {
         name: 'Creativity',
         image: require('../assets/Creativity.png'),
-        colour: '#387BC6',
+        colour: '#62ACDF',
         content: 'Creativity Skills Description',
         skills: userSkills
           .filter(skill => skill.skill.skillType.name === 'Creativity')
@@ -43,7 +44,7 @@ export default function SkillScreenMarketing() {
       {
         name: 'Technology',
         image: require('../assets/Technology.png'),
-        colour: '#387BC6',
+        colour: '#7B93B4',
         content: 'Technology Skills Description',
         skills: userSkills
           .filter(skill => skill.skill.skillType.name === 'Technology')
@@ -52,7 +53,7 @@ export default function SkillScreenMarketing() {
       {
         name: 'Presentation',
         image: require('../assets/Presentation.png'),
-        colour: '#387BC6',
+        colour: '#3C8584',
         content: 'Presentation Skills Description',
         skills: userSkills
           .filter(skill => skill.skill.skillType.name === 'Presentation')
@@ -61,7 +62,7 @@ export default function SkillScreenMarketing() {
       {
         name: 'Operations',
         image: require('../assets/Operations.png'),
-        colour: '#387BC6',
+        colour: '#A9B0B9',
         content: 'Operations Skills Description',
         skills: userSkills
           .filter(skill => skill.skill.skillType.name === 'Operations')
@@ -70,7 +71,7 @@ export default function SkillScreenMarketing() {
       {
         name: 'People skills',
         image: require('../assets/PeopleSkills.png'),
-        colour: '#387BC6',
+        colour: '#946756',
         content: 'People skills Skills Description',
         skills: userSkills
           .filter(skill => skill.skill.skillType.name === 'People skills')
@@ -86,12 +87,23 @@ export default function SkillScreenMarketing() {
     }
   };
 
+  const handleBackButtonPress = () => {
+    // Handle the back button press event here
+    // For example, you can navigate to the previous screen or perform any other desired action
+  };
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
 
   return (
+    
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.backButtonContainer}>
+      <TouchableOpacity onPress={() => handleBackButtonPress()}>
+        <Ionicons name="arrow-back" size={70} color="black" />
+      </TouchableOpacity>
+    </View>
       <View style={styles.container}>
         <View style={styles.skillContainer}>
           <Text style={styles.greetingText}>Skills</Text>
@@ -248,5 +260,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginLeft: 5,
     fontFamily: 'Just Another Hand',
+  },
+  backButtonContainer: {
+    position: 'absolute',
+    top: 60,
+    left: 30,
+    zIndex: 1,
   },
 });

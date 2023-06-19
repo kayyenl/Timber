@@ -4,6 +4,9 @@ import BottomNav from './components/BottomNav';
 import HomeScreen from './screens/HomeScreen';
 import SkillScreen from './screens/SkillScreen';
 import FriendScreen from './screens/FriendScreen';
+import BountyScreen from './screens/BountyScreen';
+
+
 
 export default function App() {
   
@@ -13,7 +16,7 @@ export default function App() {
       style={styles.container}
     >
       <View style={styles.overlay}>
-        <SkillScreen/>
+        <BountyScreen/>
         <BottomNav />
       </View>
     </ImageBackground>
