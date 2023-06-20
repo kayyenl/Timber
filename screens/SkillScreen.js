@@ -5,7 +5,7 @@ import AppLoading from 'expo-app-loading';
 import { ProgressBar } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function SkillScreenMarketing() {
+export default function SkillScreen() {
   const [fontsLoaded] = useFonts({
     'Just Another Hand': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
   });

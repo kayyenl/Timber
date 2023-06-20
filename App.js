@@ -1,25 +1,33 @@
-import React, { useEffect } from 'react'; 
+import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import BottomNav from './components/BottomNav';
 import HomeScreen from './screens/HomeScreen';
-import SkillScreen from './screens/SkillScreen';
-import FriendScreen from './screens/FriendScreen';
 import BountyScreen from './screens/BountyScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FriendScreen from './screens/FriendScreen';
+import SkillScreen from './screens/SkillScreen';
 
-
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
   return (
-    <ImageBackground
-      source={require('./assets/TimberBG.png')} 
-      style={styles.container}
-    >
-      <View style={styles.overlay}>
-        <BountyScreen/>
-        <BottomNav />
-      </View>
-    </ImageBackground>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Bounty" component={BountyScreen} />
+        <Stack.Screen name="Skill" component={SkillScreen} />
+        <Stack.Screen name="Friend" component={FriendScreen} />
+      </Stack.Navigator>
+      <ImageBackground
+        source={require('./assets/TimberBG.png')}
+        style={styles.container}
+      >
+        <View style={styles.overlay}>
+          <BottomNav />
+        </View>
+      </ImageBackground>
+    </NavigationContainer>
   );
 }
 
@@ -36,4 +44,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-

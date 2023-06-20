@@ -34,22 +34,22 @@ export default function FriendScreen() {
     try {
       const response = await fetch('http://timber-api-env.eba-tvcu62mw.ap-southeast-2.elasticbeanstalk.com/request/all');
       const data = await response.json();
-  
+
       const imageMapping = {
         0: require('../assets/Friend1.png'),
         1: require('../assets/Friend2.png'),
         2: require('../assets/Friend3.png'),
       };
-  
+
       const updatedFriends = await Promise.all(
         data.map(async (friend, index) => {
           const friendResponse = await fetch(
             `http://timber-api-env.eba-tvcu62mw.ap-southeast-2.elasticbeanstalk.com/api/userProfile?id=${friend.postedBy}`
           );
           const friendData = await friendResponse.json();
-  
+
           const imageIndex = index % 3; // Calculate the index of the Friend image (0, 1, or 2)
-  
+
           return {
             name: friendData.name,
             requestTitle: friend.title,
@@ -58,13 +58,12 @@ export default function FriendScreen() {
           };
         })
       );
-  
+
       setFriends(updatedFriends);
     } catch (error) {
       console.error('Error fetching friends:', error);
     }
   };
-  
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -73,7 +72,8 @@ export default function FriendScreen() {
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
       <View style={styles.backButtonContainer}>
-        <TouchableOpacity onPress={() => handleBackButtonPress()}>
+        <TouchableOpacity  onPress={() =>
+        navigation.navigate('Home')}>
           <Ionicons name="arrow-back" size={70} color="black" />
         </TouchableOpacity>
       </View>
@@ -86,12 +86,19 @@ export default function FriendScreen() {
         </View>
         {friends.map((friend, index) => (
           <TouchableOpacity key={index} style={styles.bountyContainer} onPress={() => handleFriendPress(friend)}>
-            <View style={styles.bountyImageContainer}>
-              <Image source={friend.image} style={styles.bountyImage} />
+            <View style={styles.leftSection}>
+              <View style={styles.friendContainer}>
+                <Image source={friend.image} style={styles.friendImage} />
+                <Text style={styles.friendName}>{friend.name}</Text>
+              </View>
             </View>
-            <View style={styles.bountyDetails}>
-              <Text numberOfLines={2} style={styles.bountyName}>{friend.requestTitle}</Text>
-              <Text numberOfLines={2} ellipsizeMode="tail" style={styles.bountyDescription}>{friend.bountyDetails}</Text>
+            <View style={styles.rightSection}>
+              <Text numberOfLines={2} style={styles.bountyName}>
+                {friend.requestTitle}
+              </Text>
+              <Text numberOfLines={2} ellipsizeMode="tail" style={styles.bountyDescription}>
+                {friend.bountyDetails}
+              </Text>
             </View>
           </TouchableOpacity>
         ))}
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 30,
     top: 50,
-    width: 350,
+    width: 380,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -141,41 +148,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 200,
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 10,
     padding: 10,
+    width: 320, // Increase the width as desired
   },
-  bountyImageContainer: {
-    marginRight: 10,
-    width: 90,
-    height: 90,
+  
+  leftSection: {
+    flex: 1,
   },
-  bountyImage: {
+  rightSection: {
+    flex: 3,
+  },
+  friendContainer: {
+    alignItems: 'center',
+  },
+  friendImage: {
     width: 60,
     height: 90,
     borderRadius: 10,
-    top: -45,
+    marginBottom: 10,
   },
-  bountyDetails: {
-    flex: 1,
-    justifyContent: 'center', // Add this to center the bounty name vertically
+  friendName: {
+    fontSize: 25,
+    fontFamily: 'Just Another Hand',
+    color: 'black',
   },
   bountyName: {
     fontWeight: 'bold',
     fontFamily: 'Just Another Hand',
-    fontSize: 40, // Adjust the font size as needed
+    fontSize: 40,
     color: 'black',
-    marginLeft: -30,
-    top: -10,
-    alignSelf: 'center',
-    textAlign: 'center', // Add this to center the bounty name horizontally
+    textAlign: 'center', // Add this line to center-align the text
   },
   bountyDescription: {
     fontSize: 25,
     fontFamily: 'Just Another Hand',
-    marginLeft: -100,
-    marginTop: 10, // Adjust this value to align the bounty descriptions consistently
+    marginTop: 10,
     color: 'black',
+    textAlign: 'center', // Add this line to center-align the text
   },
+  
   backButtonContainer: {
     position: 'absolute',
     top: 100,

@@ -1,25 +1,47 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function BottomNav() {
+  const navigation = useNavigation();
+
+  const handleTabPress = (screenName) => {
+    navigation.navigate(screenName);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.addTaskTab}>
+      <TouchableOpacity
+        style={styles.addTaskTab}
+        onPress={() => handleTabPress('Friend')}
+      >
         <Image source={require('../assets/AddPost.png')} style={styles.iconTop} />
-      </View>
+      </TouchableOpacity>
       <View style={styles.bottomRow}>
-        <View style={styles.tabLeft}>
-            <Image source={require('../assets/Skills.png')} style={styles.icon} />
-        </View>
-        <View style={styles.tab}>
-            <Image source={require('../assets/Bounty.png')} style={styles.icon} />
-        </View>
-        <View style={styles.tab}>
-            <Image source={require('../assets/Friends.png')} style={styles.icon} />
-        </View>
-        <View style={styles.tab}>
+        <TouchableOpacity
+          style={styles.tabLeft}
+          onPress={() => handleTabPress('Skill')}
+        >
+          <Image source={require('../assets/Skills.png')} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => handleTabPress('Bounty')}
+        >
+          <Image source={require('../assets/Bounty.png')} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => handleTabPress('Friend')}
+        >
+          <Image source={require('../assets/Friends.png')} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tab}
+          onPress={() => handleTabPress('Friend')}
+        >
           <Image source={require('../assets/Settings.png')} style={styles.icon} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
